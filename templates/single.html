@@ -1,0 +1,380 @@
+{% include 'Header.html' %}
+{% load static %}
+<style>
+	.flex {
+		display: flex;
+		/* Make products flex in row direction (default) */
+		flex-wrap: wrap;
+		/* Make products overflow on new row */
+		justify-content: center;
+		/* Or space-between or space-around */
+	}
+
+	.flex>section {
+		flex: 1 1 0;
+		/* Prevent the extra space around content */
+		text-align: center;
+		/* Align text on center */
+		display: flex;
+		/* Display as flex */
+		flex-direction: column;
+		/* Display flex in column */
+		align-items: center;
+		/* Align items on center */
+		max-width: 400px;
+		/* Set max-width so the last items will behave in a more traditional way */
+		/* border: 2px solid black; */
+		margin: auto;
+		padding: 10px;
+	}
+
+	.flex>section>p {
+		flex-grow: 1;
+		/* Keep p's same size */
+	}
+
+	.stars-container {
+		font-size: 30px;
+		position: relative;
+		display: inline-block;
+		color: transparent;
+	}
+
+	.stars-container:before {
+		position: absolute;
+		top: 0;
+		left: 0;
+		content: '★★★★★';
+		color: lightgray;
+	}
+
+	.stars-container:after {
+		position: absolute;
+		top: 0;
+		left: 0;
+		content: '★★★★★';
+		color: gold;
+		overflow: hidden;
+	}
+</style>
+
+<!-- banner -->
+<div class="banner banner10">
+	<div class="container">
+		<h2>Product Details</h2>
+	</div>
+</div>
+<!-- //banner -->
+<!-- breadcrumbs -->
+<div class="breadcrumb_dress">
+	<div class="container">
+		<ul>
+			<li><a href="{% url 'home' %}"><span aria-hidden="true" class="glyphicon glyphicon-home"></span> Home</a> <i>/</i>
+			</li>
+			<li>Product Details</li>
+		</ul>
+	</div>
+</div>
+<!-- //breadcrumbs -->
+<!-- single -->
+<div class="single">
+	<div class="container">
+		<div class="col-md-4 single-left">
+			<div class="flexslider">
+				<ul class="slides">
+					{% for big,small in Images %}
+					<li data-thumb="{{small.image}}">
+						<div class="thumb-image"> <img alt="" id="myImg" class="img-responsive" data-imagezoom="true"
+								src="{{big.image}}" /> </div>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+
+			<!-- flexslider -->
+			<script defer="" src="{% static 'js/jquery.flexslider.js' %}"></script>
+			<link href="{% static 'css/flexslider.css' %}" media="screen" rel="stylesheet" type="text/css" />
+			<script>
+				// Can also be used with $(document).ready()
+				$(window).load(function () {
+					$('.flexslider').flexslider({
+						animation: "slide",
+						controlNav: "thumbnails"
+					});
+				});
+			</script>
+			<!-- flexslider -->
+			<!-- zooming-effect -->
+			<script src="{% static 'js/imagezoom.js' %}"></script>
+			<!-- //zooming-effect -->
+		</div>
+		<div class="col-md-8 single-right">
+			<h3>{{product.Name}}</h3>
+
+			<style>
+				.stars- {
+					% widthratio product.Rating 1 20 %
+				}
+
+				:after {
+					width: {
+						% widthratio product.Rating 1 20 %
+					}
+
+					%;
+				}
+			</style>
+			<div><span class="stars-container stars-{% widthratio product.Rating 1 20 %}"
+					title="{{product.Rating}}/5">★★★★★</span></div>
+			<div class="description">
+				<h5><i>Description</i></h5>
+				<p style="font-weight:bold;">{{product.Specification|linebreaksbr}}</p>
+			</div>
+
+			<div class="clearfix"> </div>
+			<div class="simpleCart_shelfItem">
+				<p> <i class="item_price">Best buying price is {{product.Price}}</i></p>
+
+				<form action="#" method="post" id="cartform">
+					{% csrf_token %}
+					<input name="cmd" type="hidden" id="product_id" value="{{product.pk}}" />
+					<input name="add" type="hidden" value="1" />
+					<input name="w3ls_item" type="hidden" id="user_id" value="{{user.id}}" />
+					<input name="amount" type="hidden" value="450.00" />
+					<button class="w3ls-cart" id="cart_button" type="submit">Add to cart</button>
+						<div class="alert alert-success agileits" role="alert" id="subscribed" style="display: none; width:140px;float:right;">
+						<strong>Added to Cart!</strong>
+						</div>
+				</form>
+
+
+
+				<script type="text/javascript">
+
+					$(document).on('submit', '#cartform', function (e) {
+						e.preventDefault();
+						var user = "{{request.user}}";
+						if (user == "AnonymousUser") {
+							if (localStorage.getItem('cart') == null) {
+								var cart = {};
+							}
+							else {
+								cart = JSON.parse(localStorage.getItem('cart'));
+							}
+							var product_id = $('#product_id').val();
+							console.log(product_id);
+							if (cart[product_id] != undefined) {
+								cart[product_id] += 1;
+							}
+							else {
+								cart[product_id] = 1;
+							}
+							console.log(cart);
+							localStorage.setItem('cart', JSON.stringify(cart));
+						}
+						else {
+							$.ajax({
+								type: 'POST',
+								url: '{% url 'cart' %}',
+								data: {
+									product_id: $('#product_id').val(),
+									user: $('#user_id').val(),
+									csrfmiddlewaretoken: '{{ csrf_token }}'
+								},
+								success: function (data) {
+								document.getElementById('floatcart').innerHTML="("+data+")";
+								$('#subscribed').show();
+								setTimeout(function () {
+								$('#subscribed').fadeOut();
+								}, 500);
+									console.log(data.id);
+								},
+							});
+						}
+					});
+				</script>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="clearfix"> </div>
+</div>
+</div>
+<div class="container">
+	<h3> Buying Links</h3>
+	<br>
+	{% if stores|length > 0 %}
+	<table class="table table-bordered table-light">
+		{% for store in stores %}
+		<tr>
+			<th scope="row"><img src="{{store.logo}}" alt="{{store.store_name}}"></th>
+			<td><strong>{{store.price}}</strong></td>
+			<td><a class="btn btn-primary" href="{{store.link}}">Buy now</a></td>
+		</tr>
+		{% endfor %}
+		{% else %}
+		<p> Expected price is {{product.Price}}
+		<p>
+			{% endif %}
+	</table>
+</div>
+<div class="additional_info">
+	<div class="container">
+		<div class="sap_tabs">
+			<div id="horizontalTab1" style="display: block; width: 100%; margin: 0px;">
+				<ul>
+					<li aria-controls="tab_item-0" class="resp-tab-item" role="tab"><span>Product Information</span>
+					</li>
+					<li aria-controls="tab_item-1" class="resp-tab-item" role="tab"><span>Reviews</span></li>
+				</ul>
+				<div aria-labelledby="tab_item-0" class="tab-1 resp-tab-content additional_info_grid">
+					<h3>{{product.Name}}</h3>
+					<div>
+						{% for heading, dict in spec.items %}
+						<table class="table table-bordered table-dark">
+							<caption style="caption-side: top; text-align: center;"><strong>{{heading}}</strong>
+							</caption>
+							{% for key , value in dict.items%}
+							<tr>
+								<th scope="row">{{key}}</th>
+								<td>{{value}}</td>
+							</tr>
+							{% endfor %}
+						</table>
+						{% endfor %}
+					</div>
+				</div>
+
+				<div aria-labelledby="tab_item-1" class="tab-2 resp-tab-content additional_info_grid">
+					<h4>(2) Reviews</h4>
+					<div class="additional_info_sub_grids">
+						<div class="col-xs-2 additional_info_sub_grid_left">
+							<img alt=" " class="img-responsive" src="{% static 'images/t1.png' %}" />
+						</div>
+						<div class="col-xs-10 additional_info_sub_grid_right">
+							<div class="additional_info_sub_grid_rightl">
+								<a href="single.html">Laura</a>
+								<h5>Feb 06, 2021.</h5>
+								<p>This is a simple static review of the given product</p>
+							</div>
+							<div class="additional_info_sub_grid_rightr">
+								<div class="rating">
+									<div class="rating-left">
+										<img alt=" " class="img-responsive" src="{% static 'images/star-.png' %}" />
+									</div>
+									<div class="rating-left">
+										<img alt=" " class="img-responsive" src="{% static 'images/star-.png' %}" />
+									</div>
+									<div class="rating-left">
+										<img alt=" " class="img-responsive" src="{% static 'images/star-.png' %}" />
+									</div>
+									<div class="rating-left">
+										<img alt=" " class="img-responsive" src="{% static 'images/star.png' %}" />
+									</div>
+									<div class="rating-left">
+										<img alt=" " class="img-responsive" src="{% static 'images/star.png' %}" />
+									</div>
+									<div class="clearfix"> </div>
+								</div>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+					<div class="additional_info_sub_grids">
+						<div class="col-xs-2 additional_info_sub_grid_left">
+							<img alt=" " class="img-responsive" src="{% static 'images/t2.png' %}" />
+						</div>
+						<div class="col-xs-10 additional_info_sub_grid_right">
+							<div class="additional_info_sub_grid_rightl">
+								<a href="single.html">Michael</a>
+								<h5>Mar 04, 2021.</h5>
+								<p>This product is really useful but costly.</p>
+							</div>
+							<div class="additional_info_sub_grid_rightr">
+								<div class="rating">
+									<div class="rating-left">
+										<img alt=" " class="img-responsive" src="{% static 'images/star-.png' %}" />
+									</div>
+									<div class="rating-left">
+										<img alt=" " class="img-responsive" src="{% static 'images/star-.png' %}" />
+									</div>
+									<div class="rating-left">
+										<img alt=" " class="img-responsive" src="{% static 'images/star.png' %}" />
+									</div>
+									<div class="rating-left">
+										<img alt=" " class="img-responsive" src="{% static 'images/star.png' %}" />
+									</div>
+									<div class="rating-left">
+										<img alt=" " class="img-responsive" src="{% static 'images/star.png' %}" />
+									</div>
+									<div class="clearfix"> </div>
+								</div>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+					<div class="review_grids">
+						<h5>Add A Review</h5>
+						<form action="#" method="post">
+							<input name="Name" onblur="if (this.value == '') {this.value = 'Name';}"
+								onfocus="this.value = '';" required="" type="text" value="Name" />
+							<input name="Email" placeholder="Email" required="" type="email" />
+							<input name="Telephone" onblur="if (this.value == '') {this.value = 'Telephone';}"
+								onfocus="this.value = '';" required="" type="text" value="Telephone" />
+							<textarea name="Review" onblur="if (this.value == '') {this.value = 'Add Your Review';}"
+								onfocus="this.value = '';" required="">Add Your Review</textarea>
+							<input type="submit" value="Submit" />
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="{% static 'js/easyResponsiveTabs.js' %}" type="text/javascript"></script>
+		<script type="text/javascript">
+			$(document).ready(function () {
+				$('#horizontalTab1').easyResponsiveTabs({
+					type: 'default', //Types: default, vertical, accordion           
+					width: 'auto', //auto or any width like 600px
+					fit: true   // 100% fit in a container
+				});
+			});
+		</script>
+	</div>
+</div>
+
+<!-- link : https://cdn1.smartprix.com/rx-iTamM4PXQ-w240-h290/xiaomi-redmi-note-10.jpg  -->
+
+
+
+
+
+
+
+<div class="container">
+	<h2>Related Products</h2>
+	<div class="flex well w31">
+
+		{% for pr,img in related %}
+		<style>
+			.stars-{% widthratio product.Rating 1 20 %}:after {width: {% widthratio product.Rating 1 20 %}%;}
+		</style>
+		<section>
+		<div style="display:flex;justify-content:center;">
+			<a href="{% url 'product_detail' pr.pk %}"><img src="{{img.image}}" alt="{{pr.Name}}" /></a>
+		</div>
+
+			<a href="{% url 'product_detail' pr.pk %}"><strong>{{pr.Name}}</strong></a>
+			<br>
+			<div><span class="stars-container stars-{% widthratio pr.Rating 1 20 %}"
+					title="{{pr.Rating}}/5">★★★★★</span></div>
+			<h3>₹ {{pr.Price}}</h3>
+		</section>
+		{% endfor %}
+	</div>
+</div>
+
+
+	{% include "Footer.html" %}

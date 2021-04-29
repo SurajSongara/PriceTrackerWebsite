@@ -1,0 +1,262 @@
+{% include 'Header.html' %}
+{% load static %}
+
+
+<style>
+	.card-horizontal {
+		display: flex;
+		flex: 1 1 auto;
+		margin: 20px;
+		border: 2px;
+		solid: #000;
+	}
+
+
+	.img-square-wrapper {
+		width: 300px;
+		height: auto;
+		justify-content: center;
+	}
+
+	.card-image {
+		max-width: 240px;
+		width: auto;
+		display: block;
+		margin: auto;
+		vertical-align: middle;
+		object-fit: fill;
+	}
+
+	.card-body {
+		display: block;
+		margin: auto;
+	}
+
+	.card-text {
+		font-size: smaller;
+	}
+
+	.stars-container {
+			font-size: 20px;
+			position: relative;
+			display: inline-block;
+			color: transparent;
+		}
+
+		.stars-container:before {
+			position: absolute;
+			top: 0;
+			left: 0;
+			content: '★★★★★';
+			color: lightgray;
+		}
+
+		.stars-container:after {
+			position: absolute;
+			top: 0;
+			left: 0;
+			content: '★★★★★';
+			color: gold;
+			overflow: hidden;}
+</style>
+
+
+<div class="banner banner1">
+	<div class="container">
+		<h2>Great Offers on <span>Mobiles</span> Flat <i>35% Discount</i></h2>
+	</div>
+</div>
+
+
+
+<div class="breadcrumb_dress">
+	<div class="container">
+		<ul>
+			<li><a href="{% url 'home' %}"><span aria-hidden="true" class="glyphicon glyphicon-home"></span> Home</a> <i>/</i>
+			</li>
+			<li>Products</li>
+		</ul>
+	</div>
+</div>
+
+
+
+
+<div class="mobiles">
+	<div class="container">
+		<div class="w3ls_mobiles_grids">
+			<div class="col-md-4 w3ls_mobiles_grid_left">
+				<div class="w3ls_mobiles_grid_left_grid">
+					<h3>Categories</h3>
+					<div class="w3ls_mobiles_grid_left_grid_sub">
+						<div aria-multiselectable="true" class="panel-group" id="accordion" role="tablist">
+							<div class="panel panel-default">
+								<div class="panel-heading" id="headingOne" role="tab">
+									<h4 class="panel-title asd">
+										<a aria-controls="collapseOne" aria-expanded="true" class="pa_italic"
+											data-parent="#accordion" data-toggle="collapse" href="#collapseOne"
+											role="button">
+											<span aria-hidden="true" class="glyphicon glyphicon-plus"></span><i
+												aria-hidden="true" class="glyphicon glyphicon-minus"></i>New Arrivals
+										</a>
+									</h4>
+								</div>
+								<div aria-labelledby="headingOne" class="panel-collapse collapse in" id="collapseOne"
+									role="tabpanel">
+									<div class="panel-body panel_text">
+										<ul>
+											<li><a href="products.html">Mobiles</a></li>
+											<li><a href="products1.html">Laptop</a></li>
+											<li><a href="products2.html">Tv</a></li>
+											<li><a href="products.html">Wearables</a></li>
+											<li><a href="products2.html">Refrigerator</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading" id="headingTwo" role="tab">
+									<h4 class="panel-title asd">
+										<a aria-controls="collapseTwo" aria-expanded="false" class="pa_italic collapsed"
+											data-parent="#accordion" data-toggle="collapse" href="#collapseTwo"
+											role="button">
+											<span aria-hidden="true" class="glyphicon glyphicon-plus"></span><i
+												aria-hidden="true" class="glyphicon glyphicon-minus"></i>Accessories
+										</a>
+									</h4>
+								</div>
+								<div aria-labelledby="headingTwo" class="panel-collapse collapse" id="collapseTwo"
+									role="tabpanel">
+									<div class="panel-body panel_text">
+										<ul>
+											<li><a href="products2.html">Grinder</a></li>
+											<li><a href="products2.html">Heater</a></li>
+											<li><a href="products2.html">Kid's Toys</a></li>
+											<li><a href="products2.html">Filters</a></li>
+											<li><a href="products2.html">AC</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<ul class="panel_bottom">
+							<li><a href="products.html">Summer Store</a></li>
+							<li><a href="products.html">Featured Brands</a></li>
+							<li><a href="products.html">Today's Deals</a></li>
+							<li><a href="products.html">Latest Watches</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="w3ls_mobiles_grid_left_grid">
+					<h3>Color</h3>
+					<div class="w3ls_mobiles_grid_left_grid_sub">
+						<div class="ecommerce_color">
+							<ul>
+								<li><a href="#"><i></i> Red(5)</a></li>
+								<li><a href="#"><i></i> Brown(2)</a></li>
+								<li><a href="#"><i></i> Yellow(3)</a></li>
+								<li><a href="#"><i></i> Violet(6)</a></li>
+								<li><a href="#"><i></i> Orange(2)</a></li>
+								<li><a href="#"><i></i> Blue(1)</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="w3ls_mobiles_grid_left_grid">
+					<h3>Price</h3>
+					<div class="w3ls_mobiles_grid_left_grid_sub">
+						<div class="ecommerce_color ecommerce_size">
+							<ul>
+								<li><a href="#">Below $ 100</a></li>
+								<li><a href="#">$ 100-500</a></li>
+								<li><a href="#">$ 1k-10k</a></li>
+								<li><a href="#">$ 10k-20k</a></li>
+								<li><a href="#">$ Above 20k</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-8 w3ls_mobiles_grid_right">
+				<div class="col-md-6 w3ls_mobiles_grid_right_left">
+					<div class="w3ls_mobiles_grid_right_grid1">
+						<img alt=" " class="img-responsive" src="{% static 'images/46.jpg' %}" />
+						<div class="w3ls_mobiles_grid_right_grid1_pos1">
+							<h3>Smart Phones<span>Up To</span> 15% Discount</h3>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 w3ls_mobiles_grid_right_left">
+					<div class="w3ls_mobiles_grid_right_grid1">
+						<img alt=" " class="img-responsive" src="{% static 'images/47.jpg' %}" />
+						<div class="w3ls_mobiles_grid_right_grid1_pos">
+							<h3>Top 10 Latest<span>Mobile </span>&amp; Accessories</h3>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+				<div class="w3ls_mobiles_grid_right_grid2">
+					<div class="w3ls_mobiles_grid_right_grid2_left">
+					</div>
+					<div class="w3ls_mobiles_grid_right_grid2_right dropdown">
+						<a aria-controls="myTabDrop1-contents" class="dropdown-toggle" data-toggle="dropdown" href="#"
+							id="myTabDrop1">Sort By<span class="caret"></span></a>
+						<ul aria-labelledby="myTabDrop1" class="dropdown-menu" id="myTabDrop1-contents" role="menu">
+							<li><a aria-controls="dropdown1" href="{% url url order=1 %}" id="dropdown1-tab"
+									tabindex="-1">Price low to high</a></li>
+							<li><a aria-controls="dropdown2" href="{% url url order=2 %}" id="dropdown1-tab" role="tab"
+									tabindex="-1">Price high to low</a></li>
+							<li><a aria-controls="dropdown3" href="{% url url order=3 %}" id="dropdown1-tab" role="tab"
+									tabindex="-1">Rating high to low</a></li>
+							<li><a aria-controls="dropdown4" href="{% url url order=4 %}" id="dropdown2-tab" role="tab"
+									tabindex="-1">Rating low to high</a></li>
+						</ul>
+					</div> 
+				</div>
+				<div class="clearfix"> </div>
+				<div class="card well w31">
+					{% for product,img in all_products %}
+					<div style="border: 1px solid #ccc; padding:4px;" class="card-horizontal">
+						<div class="img-square-wrapper" style="display:flex; justify-content:center;">
+							<a href="{% url 'product_detail' product.id %}"><img class="card-image" src="{{img.image}}"
+									alt="Card image cap"></a>
+						</div>
+						<div class="card-body well w3l">
+							<style>
+								.stars-{% widthratio product.Rating 1 20 %}:after {width: {% widthratio product.Rating 1 20 %}%;}
+							</style>
+							<a href="{% url 'product_detail' product.id %}">
+								<h4 class="card-title" style="font-weight: bold;">{{product.Name|linebreaks}}</h4>
+							</a>
+							<p style="margin:10px;">
+								<span style="float: left;"><h4 class="card-title" style='font-weight: bold ;'>₹ {{product.Price}}<span class="stars-container stars-{% widthratio product.Rating 1 20 %}" title="{{product.Rating}}/5" style="float: right;">★★★★★</span>
+								</h4></span>
+							</p>
+							<p class="card-text" style="font-size:13px; font-weight:bold; margin: 10px 0; ">{{product.Specification|linebreaksbr}}</p>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% include "Footer.html" %}
+

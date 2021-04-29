@@ -1,0 +1,9 @@
+{% autoescape off %}
+Hello {{name}},
+
+Thank you for contacting . Your feedback/message is received and is under our consideration.
+
+Sincerely,
+Your Electronic Strore
+
+{% endautoescape %}

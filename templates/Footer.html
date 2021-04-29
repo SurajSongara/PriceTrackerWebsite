@@ -1,0 +1,132 @@
+{% load static %}
+
+
+
+
+<html><head></head><body>
+
+
+<div class="newsletter">
+	<div class="container">
+		<div class="col-md-6 w3agile_newsletter_left">
+			<h3>Newsletter</h3>
+			<p>Subscribe to get news about latest offers and launches</p>
+		</div>
+		<div class="col-md-6 w3agile_newsletter_right">
+			<form method="post"  id="myforms">
+				{% csrf_token %}
+				<input type="email" name="Email" id="mail" placeholder="Email" required="">
+				<input type="submit" onclick="myfun();"value=""/>
+			</form>
+		</div>
+		<div class="clearfix"> </div>
+	</div>
+</div>
+
+
+<div class="alert alert-success agileits" role="alert" id="subscribed" style="display: none">
+	<strong>You are now subscribed!</strong>
+</div>
+
+<script type="text/javascript">
+	function myfun()
+	{
+		$('#subscribed').show();
+		setTimeout(function () {
+		$('#subscribed').fadeOut();
+		}, 2000);
+		return True;
+	}
+	$(document).on('submit', '#myforms', function(e)
+	{
+			e.preventDefault();
+	
+			$.ajax({
+				type: 'POST',
+				url: '{% url 'subscribe' %}',
+				data: {
+					mail_id:$('#mail').val(),
+					csrfmiddlewaretoken: '{{ csrf_token }}'
+				},
+				success: function(data)
+				{
+					console.log(data);
+					$('#mailed').show();
+					setTimeout(function () {
+					$('#mailed').fadeOut();
+					}, 2000);
+				},
+			});
+	});
+	
+</script>
+
+<div class="alert alert-success agileits" role="alert" id="subscribed" style="display: none">
+	<strong>You are now subscribed!</strong>
+</div>
+
+<div class="alert alert-success agileits" role="alert" id="mailed" style="display: none">
+	<strong>Mail has been sent to your account!</strong>
+</div>
+
+<div class="footer">
+		<div class="container">
+			<div class="w3_footer_grids">
+				<div class="col-md-3 w3_footer_grid">
+					<h3>Contact</h3>
+					<p>Chameli Devi Group Of Institutions , Khandwa Road, Village Umrikheda, Near Toll booth,</p>
+					<ul class="address">
+						<li><i aria-hidden="true" class="glyphicon glyphicon-map-marker"></i>Indore,<span>Madhya Pradesh</span></li>
+						<li><i aria-hidden="true" class="glyphicon glyphicon-envelope"></i><a href="mailto:freemail4utouse@gmail.com">info@cdgi.edu.in</a></li>
+						<li><i aria-hidden="true" class="glyphicon glyphicon-earphone"></i>+91 731 4243600</li>
+					</ul>
+				</div>
+				<div class="col-md-3 w3_footer_grid">
+					<h3>Information</h3>
+					<ul class="info"> 
+						<li><a href="{% url 'about' %}">About Us</a></li>
+						<li><a href="{% url 'mail' %}">Contact Us</a></li>
+						<li><a href="{% url 'codes' %}">Short Codes</a></li>
+						<li><a href="{% url 'faq' %}">FAQ's</a></li>
+						<li><a href="{% url 'home' %}">Special Products</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3 w3_footer_grid">
+					<h3>Category</h3>
+					<ul class="info"> 
+						<li><a href="{% url 'Mobiles' %}">Mobiles</a></li>
+						<li><a href="{% url 'Laptops' %}">Laptops</a></li>
+						<li><a href="{% url 'ACs' %}">Air Conditioners</a></li>
+						<li><a href="{% url 'wearable-accesories' %}">Wearables</a></li>
+						<li><a href="{% url 'computer-accesories' %}">Computer Accessories</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3 w3_footer_grid">
+					<h3>Profile</h3>
+					<ul class="info"> 
+						<li><a href="{% url 'dashboard'%}">Your Product Zone</a></li>
+						<li><a href="{% url 'home' %}">Top Products</a></li>
+					</ul>
+					<h4>Follow Us</h4>
+					<div class="agileits_social_button">
+						<ul>
+							<li><a class="facebook" href="#"> </a></li>
+							<li><a class="twitter" href="#"> </a></li>
+							<li><a class="google" href="#"> </a></li>
+							<li><a class="pinterest" href="#"> </a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+		<div class="footer-copy">
+			<div class="footer-copy1">
+				<div class="footer-copy-pos">
+					<a class="scroll" href="#home1"><img alt=" " class="img-responsive" src="{% static '../static/images/arrow.png' %}"/></a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body></html>

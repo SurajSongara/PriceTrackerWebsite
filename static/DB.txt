@@ -1,0 +1,38 @@
+1) User_Table
+
+	-> 1 : user_Id(Primary Key)[int,Auto genrated]
+
+	-> 2 : user_Name[String]
+
+	-> 3 : email_Id[string]
+
+	-> 4 : cantact Number(Optional)[string]
+
+	-> 5 : password(6-12)[string]
+
+	-> 6 : otp[string]
+
+	-> 7 : is_verified[int(0 or 1)]
+-------------------------------------------------------------------------------------
+2) Search_Table
+
+	-> 1 : search_Id(Primary Key)[int,Auto genrated]
+
+	-> 2 : searched_By(User.user_Id)
+
+	-> 3 : searched_Query[String]
+-------------------------------------------------------------------------------------
+3) Viewd_product_Table
+
+	-> 1 : view_Id(Primary Key)[int,Auto genrated]
+
+	-> 2 : viewed_by(User.user_id)
+
+	-> 3 : viewed_product(Product.product_id)
+-------------------------------------------------------------------------------------
+4) Search_Reasult_Queue_Table
+
+	-> 1 : Searched_By(User.user_Id)
+
+	-> 2 : Searched_Product_Id(Product.product_id)
+--------------------------------------------------------------------------------------

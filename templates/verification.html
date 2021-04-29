@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<title>Verification-Profile Maker</title>
+	<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Material Design Bootstrap</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/../static/M-css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'M-css/bootstrap.min.css'%}" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="{% static 'M-css/mdb.min.css'%}" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="{% static 'M-css/style.min.css'%}" rel="stylesheet"">
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3">
+			</div>
+			<div class="col-lg-6" style=" margin-top: 60px">
+
+   <form class="border border-bottom-0 p-5" action="{% url 'verification' %}"  method="post"  id="f1" >
+    <p class="h4 mb-4 text-center" style="font-size :25px">Verification</p>
+    {% csrf_token %}
+    <input type="email" id="email" class="form-control mb-4"  name="Email" value="{{user.email}}" required>
+    <input type="text" id="pwd1" class="form-control mb-4" placeholder="OTP" name="otp" required>
+    <button class="btn blue-gradient btn-block btn-rounded z-depth-1a" type="submit"  onsubmit="return check();">Verify</button>
+</form>
+
+
+<div class="text-center">
+
+  <form action="{% url 'resend-otp' %}" method="post" id="myforms">
+      {% csrf_token %}
+      <input style="display : none" value="{{user.email}}" name="email" id="email_id">
+      <input type="submit" class="btn btn-primary btn-rounded" value="resend OTP" onclick="return sending();">
+  </form>
+
+</div>
+			</div>
+			<div class="col-lg-3">
+
+			</div>
+		</div>
+	</div>
+
+
+
+  <div class="alert alert-success agileits" role="alert" id="sending" style="display: none; text-align: center;">
+    <strong>SENDING OTP ...</strong>
+  </div>
+
+
+
+  <div class="alert alert-success agileits" role="alert" id="subscribed" style="display: none; text-align: center;">
+    <strong>OTP SENT SUCCESSFULLY</strong>
+  </div>
+
+
+
+	{% if messages %}
+	{% for message in messages %}
+
+	<div class="alert alert-{{message.tags}}" id="invalid" style="text-align:center;" role="alert">
+		<strong>{{message}}</strong>
+	</div>
+
+	{% endfor %}
+	{% endif %}
+
+
+<footer>
+	<script type="text/javascript" src="{% static 'js/jquery.min.js'%}" chars></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="{% static 'js/popper.min.js'%}"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="{% static 'js/bootstrap.min.js'%}"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="{% static 'js/mdb.min.js'%}"></script>
+  <!-- Initializations -->
+  <script type="text/javascript"></script>
+  <script type="text/javascript">
+
+
+    function sending()
+    {
+					$('#sending').show();
+					setTimeout(function () {
+					$('#sending').fadeOut();
+					}, 2000);
+          return true;
+    }
+
+
+    $('#invalid').show();
+					setTimeout(function () {
+					$('#invalid').fadeOut();
+					}, 3000);
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+	$(document).on('submit', '#myforms', function(e)
+	{
+			e.preventDefault();
+	
+			$.ajax({
+				type: 'POST',
+				url: '{% url 'resend-otp' %}',
+				data: {
+					email:$('#email_id').val(),
+					csrfmiddlewaretoken: '{{ csrf_token }}'
+				},
+				success: function(data)
+				{
+					global_var=data;
+					$('#subscribed').show();
+					setTimeout(function () {
+					$('#subscribed').fadeOut();
+					}, 3000);
+				},
+			});
+	});
+	
+
+  
+  
+</script>
+
+</footer>
+</body>
+</html>

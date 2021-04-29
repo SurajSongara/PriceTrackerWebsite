@@ -1,0 +1,266 @@
+{% include "Header.html" %}
+{% load static %}
+<style>
+	.card {
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		width: 290px;
+		height: 500px;
+		margin: 10px;
+		text-align: center;
+		font-family: arial;
+		overflow: hidden;
+	}
+
+	.card img {
+		text-align: center;
+		vertical-align: middle;
+		display: inline-block;
+		margin: auto;
+		object-fit: contain;
+		max-width: 240px;
+		max-height: 290px;
+	}
+
+
+
+	.price {
+		color: grey;
+		font-size: 22px;
+	}
+
+	.card button {
+		border: none;
+		outline: 0;
+		padding: 12px;
+		bottom: 0px;
+		color: white;
+		background-color: #000;
+		text-align: center;
+		cursor: pointer;
+		width: 100%;
+		font-size: 18px;
+	}
+
+	.card button:hover {
+		opacity: 0.7;
+	}
+
+	.card button:active {
+		background-color:blue;
+	}
+
+	.stars-container {
+		font-size: 30px;
+		position: relative;
+		display: inline-block;
+		color: transparent;
+	}
+
+	.stars-container:before {
+		position: absolute;
+		top: 0;
+		left: 0;
+		content: '★★★★★';
+		color: lightgray;
+	}
+
+	.stars-container:after {
+		position: absolute;
+		top: 0;
+		left: 0;
+		content: '★★★★★';
+		color: gold;
+		overflow: hidden;
+	}
+</style>
+
+
+
+
+<!-- banner -->
+<div class="banner">
+	<div class="container" style="width:auto;">
+		<h3>Electronic Store, <span>Special Offers</span></h3>
+	</div>
+</div>
+
+
+<br><br>
+
+<h1 style="text-align:center;">
+	Top rated smartphones
+</h1>
+<br><br>
+<div class="container" style="padding:1px;">
+
+	<ul style="margin-left:auto; margin-right:auto; object-fit: fill; width:1265px;">
+		{% for product,image in Mobiles %}
+		<li style="display: inline-block; margin-left: auto; margin-right: auto;">
+			<div class="card">
+				<div style="height:300px; display:flex; justify-content:center;">
+					<a href="{% url 'product_detail' product.pk %}"><img src="{{image.image}}" alt="{{product.Name}}"></a>
+				</div>
+				<div style="height:150px;">
+					<a href="{% url 'product_detail' product.pk %}"><h3>{{product.Name|slice:":20"|safe}}</h3></a>
+					<style>
+						.stars-{% widthratio product.Rating 1 20 %}:after {width: {% widthratio product.Rating 1 20 %}%;}
+					</style>
+								<div><span class="stars-container stars-{% widthratio product.Rating 1 20 %}"
+									title="{{product.Rating}}/5">★★★★★</span></div>
+					<p class="price">₹ {{product.Price}}</p>
+
+				</div>
+				<p>	
+					<div class="alert alert-success agileits" role="alert" id="alert-{{product.pk}}" style="display: none; width:300px;float:right;">
+						<strong>Added to Cart!</strong>
+					</div>
+					<button id="{{product.pk}}" type="submit" onclick="add_to_cart('{{product.pk}}');">Add to Cart</button>
+				</p>
+			</div>
+		</li>
+		{% endfor %}
+	</ul>
+
+</div>
+
+<br><br>
+<h1 style="text-align:center;">
+	Top rated laptops
+</h1>
+<br><br>
+<div class="container" style="padding:1px;">
+
+	<ul style="margin-left:auto; margin-right:auto; object-fit: fill; width:1265px;">
+		{% for product,image in Laptops %}
+		<li style="display: inline-block; margin-left: auto; margin-right: auto;">
+			<div class="card">
+				<div style="height:300px; display:flex; justify-content:center;">
+					<a href="{% url 'product_detail' product.pk %}"><img src="{{image.image}}" alt="{{product.Name}}"></a>
+				</div>
+				<div style="height:150px;">
+					<a href="{% url 'product_detail' product.pk %}"><h3>{{product.Name|slice:":20"|safe}}</h3></a>
+					<style>
+						.stars-{% widthratio product.Rating 1 20 %}:after {width: {% widthratio product.Rating 1 20 %}%;}
+					</style>
+								<div><span class="stars-container stars-{% widthratio product.Rating 1 20 %}"
+									title="{{product.Rating}}/5">★★★★★</span></div>
+					<p class="price">₹ {{product.Price}}</p>
+
+				</div>
+				<p>	
+					<div class="alert alert-success agileits" role="alert" id="alert-{{product.pk}}" style="display: none; width:300px;float:right;">
+						<strong>Added to Cart!</strong>
+					</div>
+					<button id="{{product.pk}}" type="submit" onclick="add_to_cart('{{product.pk}}');">Add to Cart</button>
+				</p>
+					
+
+					
+			</div>
+		</li>
+		{% endfor %}
+	</ul>
+
+</div>
+
+
+
+
+
+
+<br><br>
+<h1 style="text-align:center;">
+	Top rated tablets
+</h1>
+<br><br>
+<div class="container" style="padding:1px;">
+
+	<ul style="margin-left:auto; margin-right:auto; object-fit: fill; width:1265px;">
+		{% for product,image in Tablets %}
+		<li style="display: inline-block; margin-left: auto; margin-right: auto;">
+			<div class="card">
+				<div style="height:300px; display:flex; justify-content:center;">
+					<a href="{% url 'product_detail' product.pk %}"><img src="{{image.image}}" alt="{{product.Name}}"></a>
+				</div>
+				<div style="height:150px;">
+					<a href="{% url 'product_detail' product.pk %}"><h3>{{product.Name|slice:":20"|safe}}</h3></a>
+					<style>
+						.stars-{% widthratio product.Rating 1 20 %}:after {width: {% widthratio product.Rating 1 20 %}%;}
+					</style>
+								<div><span class="stars-container stars-{% widthratio product.Rating 1 20 %}"
+									title="{{product.Rating}}/5">★★★★★</span></div>
+					<p class="price">₹ {{product.Price}}</p>
+				</div>
+				<div class="alert alert-success agileits" role="alert" id="alert-{{product.pk}}" style="display: none; width:300px;float:right;">
+						<strong>Added to Cart!</strong>
+					</div>
+				<p><button id="{{product.pk}}" type="submit" onclick="add_to_cart('{{product.pk}}');">Add to Cart</button></p>
+			</div>
+		</li>
+		{% endfor %}
+	</ul>
+
+</div>
+
+<br><br>
+<h1 style="text-align:center;">
+	Top rated ACs
+</h1>
+<br><br>
+<div class="container" style="padding:1px;">
+
+	<ul style="margin-left:auto; margin-right:auto; object-fit: fill; width:1265px;">
+		{% for product,image in ACs %}
+		<li style="display: inline-block; margin-left: auto; margin-right: auto;">
+			<div class="card">
+				<div style="height:300px; display:flex; justify-content:center;">
+					<a href="{% url 'product_detail' product.pk %}"><img src="{{image.image}}" alt="{{product.Name}}"></a>
+				</div>
+				<div style="height:150px;">
+					<a href="{% url 'product_detail' product.pk %}"><h3>{{product.Name|slice:":20"|safe}}</h3></a>
+					<style>
+						.stars-{% widthratio product.Rating 1 20 %}:after {width: {% widthratio product.Rating 1 20 %}%;}
+					</style>
+								<div><span class="stars-container stars-{% widthratio product.Rating 1 20 %}"
+									title="{{product.Rating}}/5">★★★★★</span></div>
+					<p class="price">₹ {{product.Price}}</p>
+				</div>
+				<p>
+					<div class="alert alert-success agileits" role="alert" id="alert-{{product.pk}}" style="display: none; width:300px;float:right;">
+						<strong>Added to Cart!</strong>
+					</div>
+					<button id="{{product.pk}}" type="submit" onclick="add_to_cart('{{product.pk}}');">Add to Cart</button>
+				</p>
+			</div>
+		</li>
+		{% endfor %}
+	</ul>
+
+</div>
+
+<br><br>
+<script type="text/javascript">
+function add_to_cart(id)
+{
+	var url = '#alert-'+id;
+
+	$.ajax({
+					type: 'POST',
+					url: "{% url 'cart' %}",
+					data: {
+						product_id: id,
+						user: "{{user.id}}",
+						csrfmiddlewaretoken: '{{ csrf_token }}'
+					},
+					success: function (data) {
+					document.getElementById('floatcart').innerHTML="("+data+")";
+					$(url).show();
+					setTimeout(function () {
+					$(url).fadeOut();
+					}, 100);
+					},
+				});
+	
+}
+</script>
+{% include "Footer.html" %}

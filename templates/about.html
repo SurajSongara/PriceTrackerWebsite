@@ -1,0 +1,118 @@
+{% include "Header.html" %}
+{% load static %}
+	<!-- banner -->
+	<div class="banner banner10">
+		<div class="container">
+			<h2>About Us</h2>
+		</div>
+	</div>
+	<!-- //banner -->   
+	<!-- breadcrumbs -->
+	<div class="breadcrumb_dress">
+		<div class="container">
+			<ul>
+				<li><a href="{% url 'home' %}"><span aria-hidden="true" class="glyphicon glyphicon-home"></span> Home</a> <i>/</i></li>
+				<li>About Us</li>
+			</ul>
+		</div>
+	</div>
+	<!-- //breadcrumbs --> 
+	<!-- about -->
+	<div class="about">
+		<div class="container">	
+			<div class="w3ls_about_grids">
+				<div class="col-md-6 w3ls_about_grid_left">
+					<p>We are a team of 4 students who are currently persuing their engineering in computer science department from Chameli Devi Group of Institutions</p>
+					<div class="col-xs-2 w3ls_about_grid_left1">
+						<span aria-hidden="true" class="glyphicon glyphicon-new-window"></span>
+					</div>
+					<div class="col-xs-10 w3ls_about_grid_left2">
+						<p>This website is a part of minor project which is guided by Mr.Shailendra Kumar Mishra HOD of Computer Science Department </p>
+					</div>
+					<div class="clearfix"> </div>
+					<div class="col-xs-2 w3ls_about_grid_left1">
+						<span aria-hidden="true" class="glyphicon glyphicon-flash"></span>
+					</div>
+					<div class="col-xs-10 w3ls_about_grid_left2">
+						<p>The backend technology used in this project is Python Django . Special thannks to <a href="http://www.smartprix.com">Smartprix</a> for all the product details </p>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="col-md-6 w3ls_about_grid_right">
+					<img alt=" " class="img-responsive" src="{% static 'images/stayhome.jpg' %}" style="width:400px;height:400px;/>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<!-- //about --> 
+	<!-- team -->
+	<div class="team">
+		<div class="container">
+			<h3>Meet Our Team</h3>
+			<div class="wthree_team_grids">
+				<div class="col-md-3 wthree_team_grid">
+					<img alt=" " class="img-responsive" src="{% static 'images/yadu.jpeg' %}"/>
+					<h4>Yadu Patidar <span>Database Manager</span></h4>
+					<div class="agileits_social_button">
+						<ul>
+							<li><a class="facebook" href="#"> </a></li>
+							<li><a class="twitter" href="#"> </a></li>
+							<li><a class="google" href="#"> </a></li>
+							<li><a class="pinterest" href="#"> </a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-3 wthree_team_grid">
+					<img alt=" " class="img-responsive" src="{% static 'images/vinay.jpeg' %}"/>
+					<h4>Vinay Verma <span>Frontend Developer</span></h4>
+					<div class="agileits_social_button">
+						<ul>
+							<li><a class="facebook" href="#"> </a></li>
+							<li><a class="twitter" href="#"> </a></li>
+							<li><a class="google" href="#"> </a></li>
+							<li><a class="pinterest" href="#"> </a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-3 wthree_team_grid">
+					<img alt=" " class="img-responsive" src="{% static 'images/tanmeet.jpg' %}"/>
+					<h4>Tanmeet Singh <span>Backend Developer</span></h4>
+					<div class="agileits_social_button">
+						<ul>
+							<li><a class="facebook" href="#"> </a></li>
+							<li><a class="twitter" href="#"> </a></li>
+							<li><a class="google" href="#"> </a></li>
+							<li><a class="pinterest" href="#"> </a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-3 wthree_team_grid">
+					<img alt=" " class="img-responsive" src="{% static 'images/suraj.jpg' %}"/>
+					<h4>Suraj Songara <span>Tester</span></h4>
+					<div class="agileits_social_button">
+						<ul>
+							<li><a class="facebook" href="#"> </a></li>
+							<li><a class="twitter" href="#"> </a></li>
+							<li><a class="google" href="#"> </a></li>
+							<li><a class="pinterest" href="#"> </a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+				<p>NOTE : The sole purpose of of this website is learning and it is not meant for commercial purposes</p>
+			</div>
+		</div>
+	</div>
+	<!-- //team -->
+	<!-- team-bottom -->
+	<div class="team-bottom">
+		<div class="container">
+			<h3>Are You Ready For Deals? Flat <span>30% Offer </span>on Mobiles</h3>
+			<p>Why search same product on different websites if you can get details from all websites in a single page</p>
+			<a href="{% url 'home' %}">Shop Now</a>
+		</div>
+	</div>
+	<!-- //team-bottom -->
+
+{% include "Footer.html" %}

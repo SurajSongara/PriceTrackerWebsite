@@ -1,0 +1,9 @@
+{% autoescape off %}
+
+Dear User,
+    Thank you for subscribing to Your Electronic Strore, You will receive mails regarding price alerts and best deals.
+
+Sincerely,
+Your Electronic Strore
+
+{% endautoescape %}

@@ -1,0 +1,137 @@
+{% include "Header.html" %}
+<style>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        width: auto;
+        height: auto;
+        margin: 10px;
+        text-align: center;
+        font-family: arial;
+        overflow: hidden;
+        padding:20px;
+    }
+
+    .storecard {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        width: 800px;
+        height: auto;
+        margin: 10px;
+        float: right;
+        text-align: center;
+        font-family: arial;
+        overflow: hidden;
+    }
+
+    .storecard table {
+        width: 760px;
+        text-align: center;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .card img {
+        text-align: center;
+        vertical-align: middle;
+        display: inline-block;
+        margin: auto;
+        object-fit: contain;
+        max-width: 240px;
+        max-height: 290px;
+    }
+
+
+
+    .price {
+        color: grey;
+        font-size: 22px;
+    }
+
+    .card button {
+        border: none;
+        float: right;
+        width:40px;
+        height:40px;
+    }
+
+    .card button:hover {
+        opacity: 0.7;
+    }
+</style>
+
+<div class="container">
+    {% if message %}
+    <br><br><br><br><br>
+    <h2>Kindly log in to view your cart </h2>
+    <br><br><br><br><br>
+    {% else %}
+    {% if items > 0 %}
+    <ul>
+        {% for product,image,stores in cart %}
+        <li style="list-style: none; margin:20px;">
+            <div class="card" id="card-{{product.pk}}">
+                <button title="Remove" onclick="remove('{{product.id}}');" ><i class="fa fa-trash-o"></i></button>
+                <table>
+                    <td style="width:300px">
+                        <div style="height:300px; display:flex; justify-content:center;">
+                            <img src="{{image.image}}" alt="Denim Jeans">
+                        </div>
+                        <div style="height:auto;">
+                            <strong>{{product.Name}}</strong>
+                        </div>
+                    </td>
+                    <td style="width:700px; margin: 20px;">
+                        <h3> Buying Links</h3>
+                        <br>
+                        {% if stores|length > 0 %}
+                        <table class="table table-bordered table-light">
+                            {% for store in stores %}
+                            <tr>
+                                <th scope="row"><img src="{{store.logo}}" alt="{{store.store_name}}"></th>
+                                <td><strong>{{store.price}}</strong></td>
+                                <td><a class="btn btn-primary" href="{{store.link}}">Buy now</a></td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                            <p> Expected price is {{product.Price}}
+                            <p>
+                                {% endif %}
+                        </table>
+                    </td>
+                </table>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+        {% else %}
+            <br><br><br><br><br>
+            <h2>Your cart is empty! </h2>
+            <br><br><br><br><br>
+        {% endif %}
+    {% endif %}
+</div>
+
+
+<script>
+    function remove(id)
+    {     
+	$.ajax({
+        type: 'POST',
+        url: "{% url 'cartremove' %}",
+        data: {
+            product_id: id,
+            user: "{{user.id}}",
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function (data) {
+            document.getElementById('floatcart').innerHTML="("+data+")";
+            id='#card-'+id;
+             $(id).remove();
+        },
+    });
+    }
+</script>
+
+
+
+{% include "Footer.html" %}
