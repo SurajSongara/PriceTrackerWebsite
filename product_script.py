@@ -162,7 +162,7 @@ def Get_stores(soup):
 
 
 def update_product():
-    sys.stdin = open("output.txt", "r")
+    # sys.stdin = open("output.txt", "r")
     try:
         while True:
             P={}
@@ -265,7 +265,8 @@ def Execute():
     except EOFError:
         print("Successfully executed !!")
 
-Execute()
+# Execute()
+update_product()
 
 # import time
 
