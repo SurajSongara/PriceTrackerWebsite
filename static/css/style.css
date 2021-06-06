@@ -198,8 +198,9 @@ a.simpleCart_empty {
     height: 50px;
     text-align: center;
     outline: none;
-    position: fixed;
+    position: fixed !important;
     right: 14%;
+	overflow-y:inherit ;
 	z-index: 999
 }
 .w3view-cart i.fa {

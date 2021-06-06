@@ -1,137 +1,228 @@
-{% include "Header.html" %}
-<style>
-    .card {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        width: auto;
-        height: auto;
-        margin: 10px;
-        text-align: center;
-        font-family: arial;
-        overflow: hidden;
-        padding:20px;
-    }
+{% load static %}
 
-    .storecard {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        width: 800px;
-        height: auto;
-        margin: 10px;
-        float: right;
-        text-align: center;
-        font-family: arial;
-        overflow: hidden;
-    }
+<!doctype html>
+<html lang="en">
 
-    .storecard table {
-        width: 760px;
-        text-align: center;
-        margin: auto;
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
+<head>
+    <meta charset="utf-8">
+    <title>Price Tracker</title>
+    <meta name="_token" content="{{csrf_token}}">
+    <meta name="_userid" content="{{user.id}}">
+    <link rel="icon" href="{% static 'images/main_icon.ico' %}" type="image/icon type">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="{% static 'fonts/sidebarfonts/icomoon/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{% static 'css/sidebarcss/owl.carousel.min.css' %}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{% static 'css/sidebarcss/bootstrap.min.css' %}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{% static 'css/sidebarcss/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
 
-    .card img {
-        text-align: center;
-        vertical-align: middle;
-        display: inline-block;
-        margin: auto;
-        object-fit: contain;
-        max-width: 240px;
-        max-height: 290px;
-    }
+<body>
 
-
-
-    .price {
-        color: grey;
-        font-size: 22px;
-    }
-
-    .card button {
-        border: none;
-        float: right;
-        width:40px;
-        height:40px;
-    }
-
-    .card button:hover {
-        opacity: 0.7;
-    }
-</style>
-
-<div class="container">
-    {% if message %}
-    <br><br><br><br><br>
-    <h2>Kindly log in to view your cart </h2>
-    <br><br><br><br><br>
-    {% else %}
-    {% if items > 0 %}
-    <ul>
-        {% for product,image,stores in cart %}
-        <li style="list-style: none; margin:20px;">
-            <div class="card" id="card-{{product.pk}}">
-                <button title="Remove" onclick="remove('{{product.id}}');" ><i class="fa fa-trash-o"></i></button>
-                <table>
-                    <td style="width:300px">
-                        <div style="height:300px; display:flex; justify-content:center;">
-                            <img src="{{image.image}}" alt="Denim Jeans">
-                        </div>
-                        <div style="height:auto;">
-                            <strong>{{product.Name}}</strong>
-                        </div>
-                    </td>
-                    <td style="width:700px; margin: 20px;">
-                        <h3> Buying Links</h3>
-                        <br>
-                        {% if stores|length > 0 %}
-                        <table class="table table-bordered table-light">
-                            {% for store in stores %}
-                            <tr>
-                                <th scope="row"><img src="{{store.logo}}" alt="{{store.store_name}}"></th>
-                                <td><strong>{{store.price}}</strong></td>
-                                <td><a class="btn btn-primary" href="{{store.link}}">Buy now</a></td>
-                            </tr>
-                            {% endfor %}
-                            {% else %}
-                            <p> Expected price is {{product.Price}}
-                            <p>
-                                {% endif %}
-                        </table>
-                    </td>
-                </table>
+    <aside class="sidebar">
+        <div class="toggle">
+            <a href="#" class="burger js-menu-toggle" data-toggle="collapse" data-target="#main-navbar"></a>
+        </div>
+        <div class="side-inner">
+            <div class="profile">
+                <img src="{% static 'images/user.png' %}" alt="Image" class="img-fluid" />
+                <h3 class="name">{{user.username}}</h3>
+                <span class="country">{{user.email}}</span>
             </div>
-        </li>
-        {% endfor %}
-    </ul>
-        {% else %}
-            <br><br><br><br><br>
-            <h2>Your cart is empty! </h2>
-            <br><br><br><br><br>
-        {% endif %}
-    {% endif %}
-</div>
 
 
-<script>
-    function remove(id)
-    {     
-	$.ajax({
-        type: 'POST',
-        url: "{% url 'cartremove' %}",
-        data: {
-            product_id: id,
-            user: "{{user.id}}",
-            csrfmiddlewaretoken: '{{ csrf_token }}'
-        },
-        success: function (data) {
-            document.getElementById('floatcart').innerHTML="("+data+")";
-            id='#card-'+id;
-             $(id).remove();
-        },
-    });
-    }
-</script>
+            <div class="nav-menu">
+                <ul>
+                    <li><a href="{% url 'home' %}"><span class="icon-home mr-3"></span>Home</a></li>
+                    <li class="accordion">
+                        <a href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                            aria-controls="collapseTwo" class="collapsible">
+                            <span class="icon-search2 mr-3"></span>Explore
+                        </a>
+
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingOne">
+                            <div>
+                                <ul>
+                                    <li><a href="{% url 'Mobiles' %}">Mobiles</a></li>
+                                    <li><a href="{% url 'Laptops' %}">Laptops</a></li>
+                                    <li><a href="{% url 'home' %}">Other devices</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </li>
+                    <li><a href="#" onclick="show_wallet();"><span
+                                class="icon-account_balance_wallet mr-3"></span>Wallet</a></li>
+                    <li><a href="#" onclick="show_cart();"><span class="icon-shopping-cart mr-3"></span>Cart</a></li>
+                    <li><a href="#" onclick="password_change();"><span class="icon-track_changes mr-3"></span>Change
+                            Password</a></li>
+                    <li><a href="{% url 'logout' %}"><span class="icon-sign-out mr-3"></span>Sign out</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </aside>
+
+    <main>
+        <div>
+            <div>
+                <div>
+
+                    <div class="container" id="wallet" style="display:none;">
+                        <div class="card mb-3 " style="text-align: left;">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-9 text-secondary">
+                                        <h3>Your wallet balance is : <span style="font-weight: bold;">₹ 0<span></h3>
+                                        <br><br>
+                                        <div class="col-sm-9 text-secondary">
+                                            <label for="account_number">Account Number:&nbsp;</label>
+                                            <input type="text" id="account_number" accountNo="account_number"><br><br>
+                                            <label for="ifsc">IFSC Code:&nbsp;&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;</label>
+                                            <input type="text" id="ifsc" ifsc="ifsc"><br><br>
+                                            <label for="withdrawl_amount">Enter Amount &nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                            <input type="text" id="withdrawl_amount"
+                                                withdrawlAmt="withdrawl_amount"><br><br>
+
+
+                                            <div class="row">
+                                                <div class="col"><button class="btn btn-primary"
+                                                        style=" width:100px; margin-right: 20px;">Refresh</button>
+                                                </div>
+                                                <br class="mobile">
+                                                <br class="mobile">
+                                                <br class="mobile">
+                                                <div class="col">
+                                                    <button id="withdrawBtn" style="width:150px; margin-right: 20px;"
+                                                        class="btn btn-primary" onclick="withdraw();">Withdraw
+                                                        Now</button>
+                                                </div>
+                                            </div>
+                                            <br class="mobile">
+                                            <p id="withdrawTxt"></p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
 
-{% include "Footer.html" %}
+                    <div class="container" id="password_change" style="display:none;">
+                        <div class="card mb-3 " style="text-align: left;">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-9 text-secondary">
+                                        <h3>Change your password:</h3>
+                                        <br><br>
+                                        <div class="col-sm-9 text-secondary">
+                                            <label for="account_number">Current Password:&nbsp;</label>
+                                            <input type="text" id="current_pass"><br><br>
+                                            <label for="ifsc">New Password:&nbsp;&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;</label>
+                                            <input type="text" id="new_pass"><br><br>
+                                            <label for="withdrawl_amount">Confirm Password:
+                                                &nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                            <input type="text" id="confirm_pass"><br><br>
+
+
+                                            <div class="row">
+                                                <div class="col"><button class="btn btn-primary"
+                                                        style=" width:100px; margin-right: 20px;">Refresh</button>
+                                                </div>
+                                                <br class="mobile">
+                                                <br class="mobile">
+                                                <br class="mobile">
+                                                <div class="col">
+                                                    <button id="withdrawBtn" style="width:150px; margin-right: 20px;"
+                                                        class="btn btn-primary" onclick="withdraw();">Withdraw
+                                                        Now</button>
+                                                </div>
+                                            </div>
+                                            <br class="mobile">
+                                            <p id="withdrawTxt"></p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="container">
+                        <div class="main-body">
+                            <div class="container" id="cart">
+                                {% if message %}
+                                <br><br><br><br><br>
+                                <h2>Kindly log in to view your cart </h2>
+                                <br><br><br><br><br>
+                                {% else %}
+                                {% if items > 0 %}
+                                <ul>
+                                    {% for product,image,stores in cart %}
+                                    <li style="list-style: none; margin:20px;">
+                                        <div class="card" id="card-{{product.pk}}">
+                                            <button title="Remove" onclick="remove('{{product.id}}');"><i
+                                                    class="icon-trash" style="font-size:2rem;"></i></button>
+                                            <table>
+                                                <td style="width:300px">
+                                                    <div style="height:300px; display:flex; justify-content:center;">
+                                                        <img src="{{image.image}}" alt="{{product.Name}}">
+                                                    </div>
+                                                    <div style="height:auto;">
+                                                        <strong>{{product.Name}}</strong>
+                                                    </div>
+                                                </td>
+                                                <td style="width:700px; margin: 20px;">
+                                                    <h3> Buying Links</h3>
+                                                    <br>
+                                                    {% if stores|length > 0 %}
+                                                    <table class="table table-bordered table-light">
+                                                        {% for store in stores %}
+                                                        <tr>
+                                                            <th scope="row"><img src="{{store.logo}}"
+                                                                    alt="{{store.store_name}}"></th>
+                                                            <td><strong>{{store.price}}</strong></td>
+                                                            <td><a class="btn btn-primary" href="{{store.link}}">Buy
+                                                                    now</a></td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                        {% else %}
+                                                        <p> Expected price is {{product.Price}}
+                                                        <p>
+                                                            {% endif %}
+                                                    </table>
+                                                </td>
+                                            </table>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                {% else %}
+                                <br><br><br><br><br>
+                                <h2>Your cart is empty! </h2>
+                                <br><br><br><br><br>
+                                {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <script src="{% static 'js/sidebarjs/sidebaraction.js' %}"></script>
+    <script src="{% static 'js/sidebarjs/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/sidebarjs/popper.min.js' %}"></script>
+    <script src="{% static 'js/sidebarjs/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/sidebarjs/main.js' %}"></script>
+
+</body>
+
+</html>

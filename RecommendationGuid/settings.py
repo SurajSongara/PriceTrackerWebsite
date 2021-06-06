@@ -26,8 +26,9 @@ SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+# DEBUG = True
 
-ALLOWED_HOSTS = ['pricetracker0902.herokuapp.com','localhost']
+ALLOWED_HOSTS = ['pricetracker0902.herokuapp.com','localhost','127.0.0.1']
 
 
 # Application definition
@@ -139,6 +140,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR/ 'static'
+
+# STATICFILES_DIRS = [BASE_DIR/'static']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

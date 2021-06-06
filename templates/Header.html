@@ -3,8 +3,8 @@
 <html lang="en">
 
 <head>
-	<title>Electronic Store a Ecommerce Online Shopping Category Bootstrap Responsive Website Template | Home ::
-		w3layouts</title>
+	<title>Price Tracker</title>
+	<link rel="icon" href="{% static 'images/main_icon.ico' %}" type="image/icon type">
 	<!-- for-mobile-apps -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -253,7 +253,7 @@
 		{
 			$('#myModal88').modal('show');
 		}
-	
+		
 	</script> 
 
 
@@ -264,9 +264,10 @@
 			{% if  user.is_authenticated %}
 			<div class="w3l_login dropdown">
 				<a href="#" aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
-				<ul class="dropdown-menu"> 
+				<ul class="dropdown-menu">
 					<li class="drop"><a href="{% url 'dashboard' %}" style="height:20px; width:115px; border: none;">Dashboard</a></li>
 					<li class="drop"><a href="{% url 'logout' %}" style="height:20px; width:115px; border: none;" >Logout</a></li> 
+
 				</ul>
 			</div>
 			{% else %}
