@@ -1,1 +1,0 @@
-web: waitress-serve --port=$PORT RecommendationGuid.wsgi:application
