@@ -204,3 +204,18 @@ def contactview(request):
         return HttpResponse('Invalid header found.')
     return redirect("mail")
 
+
+
+def changepasswordview(request):
+    if request.method == 'POST':
+        email=request.POST.get('user')
+        password=request.POST.get('password')
+        new_password= request.POST.get('new_password')
+        if authenticate(request,email=email, password=password):
+            new_password=make_password(new_password,hasher='default')
+            CustomUser.objects.filter(email=email).update(password=new_password)   
+            return HttpResponse(1)
+        else:
+            return HttpResponse(0)
+    else:
+        HttpResponse('404 not found!')

@@ -52,3 +52,14 @@ class Cart(models.Model):
     product = models.ManyToManyField(Product, blank=True)
 
 
+
+class Wallet(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    amount=models.FloatField(default=0)
+
+
+    def get_amount(self):
+        return self.amount
+    
+    def set_amount(self,amount):
+        self.amount=amount

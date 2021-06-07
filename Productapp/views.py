@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponse,redirect
-from .models import Product,bigImage,smallImage,mediumImage,Cart,Store
+from .models import Product,bigImage,smallImage,mediumImage,Cart,Store,Wallet
 from Accounts.models import CustomUser
 from django.http import JsonResponse
 from django.core import serializers
@@ -269,6 +269,7 @@ def dashboardview(request):
     user=request.user
     if user.is_authenticated:
         cart,status=Cart.objects.get_or_create(user=user)
+        wallet,status=Wallet.objects.get_or_create(user=user)
         imglist=[]
         productlist=[]
         storelist=[]
@@ -278,7 +279,7 @@ def dashboardview(request):
             storelist.append(store)
             imglist.append(img)
             productlist.append(product)
-        return render(request,'dashboard.html',{'cart':zip(productlist,imglist,storelist),'items':len(productlist)})
+        return render(request,'dashboard.html',{'cart':zip(productlist,imglist,storelist),'items':len(productlist),'amount':wallet.get_amount()})
     else:
         return render(request,'dashboard.html',{'message':True})
 
