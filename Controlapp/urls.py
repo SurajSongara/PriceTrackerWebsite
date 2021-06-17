@@ -9,6 +9,7 @@ urlpatterns = [
     path('icons/',views.iconsview,name='icons'),
     path('star/',views.starview,name='star'),
     path('faq/',views.faqview,name='faq'),
+    path('apis/',views.apiview,name='apis')
 ]
 
 

@@ -1,0 +1,35 @@
+{% include 'Header.html' %}
+<div class="container-fluid text-center">
+    {% if not user.is_authenticated %}
+    <br><br>
+    <h1>Kindly Login to access Api</h1>
+    <br><br>
+    {% else %}
+    <br><br>
+
+    <h2>Get all product details</h2>
+    <pre>
+        <code class="language-python">
+            <p>url : <a href="http://pricetracker0902.herokuapp.com/api/products">pricetracker0902.herokuapp.com/api/endpoint</a> </p>
+            <p>endpoints : [products]</p>
+        </code>
+      </pre>
+    
+    <h2>Get product detail based on category</h2>
+      <pre>
+          <code class="language-python">
+            <p>url : <a href="http://pricetracker0902.herokuapp.com/api/products/Laptops">pricetracker0902.herokuapp.com/api/endpoint</a> </p>
+            <p>endpoints : [Mobile Phones,ACs,Laptops,Tablets,TVs,Cameras,Headphones And Headsets,Keyboards,Pen Drives,Memory Cards,Smartwatches,Fitness Bands]</p>
+          </code>
+        </pre>
+
+    <h2>Get all product details based on id</h2>
+    <pre>
+        <code class="language-python">
+            <p>url : <a href="http://pricetracker0902.herokuapp.com/api/1">pricetracker0902.herokuapp.com/api/endpoint</a> </p>
+            <p>endpoints : [1,2,3....]</p>
+        </code>
+      </pre>
+    {% endif %}
+</div>
+{% include 'Footer.html' %}

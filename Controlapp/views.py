@@ -88,6 +88,9 @@ def faqview(request):
 def starview(request):
     return render(request=request, template_name="stars.html")
 
+def apiview(request):
+    return render(request=request, template_name="api.html")
+
 
 
 

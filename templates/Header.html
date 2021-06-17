@@ -218,9 +218,9 @@
 									});
 								});
 							</script>
-							<div id="OR" class="hidden-xs">OR</div>
+							{% comment %} <div id="OR" class="hidden-xs">OR</div> {% endcomment %}
 						</div>
-						<div class="col-md-4 modal_body_right modal_body_right1">
+						{% comment %} <div class="col-md-4 modal_body_right modal_body_right1">
 							<div class="row text-center sign-with">
 								<div class="col-md-12">
 									<h3 class="other-nw">Sign in with</h3>
@@ -238,7 +238,7 @@
 									</ul>
 								</div>
 							</div>
-						</div>
+						</div> {% endcomment %}
 					</div>
 				</div>
 			</div>
@@ -417,13 +417,14 @@
 							</ul>
 						</li>
 						<li><a href="{% url 'about'%}">About Us</a></li>
-						<li class="w3pages"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+						{% comment %} <li class="w3pages"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
 								aria-haspopup="true" aria-expanded="false">Pages <span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="{% url 'icons'%}">Web Icons</a></li>
 								<li><a href="{% url 'codes'%}">Short Codes</a></li>
 							</ul>
-						</li>
+						</li> {% endcomment %}
+						<li><a href="{% url 'apis' %}">API</a></li>
 						<li><a href="{% url 'mail' %}">Mail Us</a></li>
 					</ul>
 				</div>
